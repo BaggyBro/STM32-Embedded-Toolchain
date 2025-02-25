@@ -7,14 +7,10 @@ SIZE = arm-none-eabi-size
 PROGRAM=firmware.bin
 
 CFLAGS = -mcpu=cortex-m4 -mthumb -Wall -O2 -ffreestanding -nostdlib
-
 LDSCRIPT = linker.ld
 
-SRCS_C = src/main.c src/uart.c src/rtos.c
-SRCS_S = src/startup.s
-
-OBJS = $(SRCS_C:.c=.o) $(SRCS_S:.s=.o)
-
+SRCS_C = src/main.c src/uart.c src/rtos.c src/startup.c  
+OBJS = $(SRCS_C:.c=.o)  
 TARGET = firmware.elf
 
 all: $(TARGET)
@@ -27,14 +23,14 @@ $(TARGET): $(OBJS)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-%.o: %.s
-	$(CC) $(CFLAGS) -c $< -o $@
-
 flash: 
 	openocd -f openocd.cfg -c "program $(PROGRAM) verify reset exit"
 
 stflash:
 	st-flash --format binary write $(PROGRAM) 0x08000000  
+
+debug:
+	openocd -f interface/stlink.cfg -f target/stm32f4x.cfg
 
 clean:
 	rm -f $(OBJS) $(TARGET) firmware.bin

@@ -3,6 +3,7 @@
 #define RCC_AHB1ENR  (*(volatile uint32_t*) 0x40023830)  // RCC Enable Register
 #define GPIOA_MODER  (*(volatile uint32_t*) 0x40020000)  // GPIO Mode Register
 #define GPIOA_ODR    (*(volatile uint32_t*) 0x40020014)  // GPIO Output Register
+#define GPIOA_AFRL  (*(volatile uint32_t*)(GPIOA_MODER + 0x20)) 
 
 #define USART2_BASE  0x40004400
 #define USART2_SR    (*(volatile uint32_t*)(USART2_BASE + 0x00))

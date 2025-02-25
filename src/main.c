@@ -1,13 +1,20 @@
-#include "uart.h"
-#include "rtos.h"
+#include "../include/stm32f446.h"
+#include "./led_blink.c"
 
-int main(){
-  uart_init();
-  systick_init(16000000);
+#define RCC_AHB1ENR  (*(volatile uint32_t*) 0x40023830)
+#define GPIOA_MODER  (*(volatile uint32_t*) 0x40020000)
+#define GPIOA_ODR    (*(volatile uint32_t*) 0x40020014)
 
-  while(1){
-    uart_send_string("Hello there!");
-    for(volatile int i = 1; i < 1000000; i++); //simple delay
-    __asm("WFI");   //sleep until next interrupt
-  }
+
+int main(void) {
+
+    RCC_AHB1ENR |= (1U << 0);  
+
+    GPIOA_MODER &= ~(3U << 10); 
+    GPIOA_MODER |= (1U << 10);
+
+    led_blink();
+
+    return 0;
 }
+

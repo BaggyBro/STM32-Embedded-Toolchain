@@ -1,8 +1,22 @@
 
-ENTRY(Reset_Handler)
-
-MEMORY {
-  flash(rx) : org = 0x0800000, len = 512k
-  ram0 (wx) : org = 0x2000000, len = 112k
+MEMORY
+{
+  ram    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 128K
+  flash    (rx)    : ORIGIN =0x08000000,   LENGTH = 512K
 }
-_estack = ORIGIN(ram0) + LENGTH(ram0);
+
+_eram = ORIGIN(ram) + LENGTH(ram);
+_stack = _eram;
+/*stack starts at the end of ram and grows downwards*/
+
+SECTIONS
+{
+  .text :
+  {
+    . = ALIGN(4);
+    KEEP(*(.ivt))
+    *(.text)
+    . = ALIGN(4);
+    _extext = .;
+  } > flash
+}

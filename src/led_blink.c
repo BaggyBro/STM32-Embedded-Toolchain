@@ -6,6 +6,11 @@ void delay() {
 
 
 void led_blink(void){
+  
+    RCC_AHB1ENR |= (1U << 0);  
+
+    GPIOA_MODER &= ~(3U << 10); 
+    GPIOA_MODER |= (1U << 10);
     while (1) {
         GPIOA_ODR ^= (1U << 5);  // Toggle LED
         delay();           // Delay

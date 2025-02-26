@@ -16,7 +16,7 @@ TARGET = firmware.elf
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -T $(LDSCRIPT) -o $(TARGET) $(OBJS)
+	$(CC) $(CFLAGS) -g -O0 -T $(LDSCRIPT) -o $(TARGET) $(OBJS)
 	$(OBJCOPY) -O binary $(TARGET) firmware.bin
 	$(SIZE) $(TARGET)
 

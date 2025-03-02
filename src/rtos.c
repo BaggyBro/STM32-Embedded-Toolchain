@@ -1,5 +1,5 @@
 #include "rtos.h"
-#include "uart.h"
+#include "./uart.h"
 
 void SysTick_Handler(void) {
   uart_send_string("Tick! \r\n"); 

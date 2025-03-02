@@ -1,6 +1,7 @@
 
 #include <stdint.h>
 
+// pg no. 127 on docs
 #define RCC_AHB1ENR  (*(volatile uint32_t*) 0x40023830) 
 
 #define GPIOA_MODER  (*(volatile uint32_t*) 0x40020000)  // GPIO Mode Register
@@ -12,6 +13,7 @@
 #define GPIOA_AFRL   (*(volatile uint32_t*) 0x40020020)  // Alternate Function Low Register
 
 #define RCC_AHB1ENR  (*(volatile uint32_t*) 0x40023830)  // RCC AHB1 Enable Register
+#define RCC_APB1ENR  (*(volatile uint32_t*) 0x40023800)// RCC AHP1 Enable Register
 
 #define GPIOB_BASE   0x40020400  // Base address of GPIOB
 #define GPIOB_MODER  (*(volatile uint32_t*) (GPIOB_BASE + 0x00))  // GPIOB Mode Register
